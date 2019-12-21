@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stepupithub/stepupit-stable.git"
+    "url": "git+https://github.com/stepupithub/government-exam-stepupit.git"
   },
   "keywords": [
     "ExpressJS",
@@ -18,9 +18,9 @@
   "author": "Stepupithub",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stepupithub/stepupit-stable/issues"
+    "url": "https://github.com/stepupithub/government-exam-stepupit/issues"
   },
-  "homepage": "https://github.com/stepupithub/stepupit-stable",
+  "homepage": "https://github.com/stepupithub/government-exam-stepupit",
   "dependencies": {
     "async": "^1.5.2",
     "body-parser": "^1.17.2",
@@ -36,7 +36,6 @@
     "date-utils": "^1.2.21",
     "errorhandler": "^1.5.0",
     "express": "^4.15.3",
-    "express-fileupload": "0.0.4",
     "express-session": "^1.15.4",
     "express-useragent": "^1.0.7",
     "express-validator": "^2.21.0",
@@ -51,11 +50,6 @@
     "hbs": "^4.0.1",
     "method-override": "^2.3.9",
     "mongoose": "^5.0.10",
-    "morgan": "^1.8.2",
-    "multiparty": "^4.1.2",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
-    "request": "^2.81.0",
     "sass": "^1.17.2",
     "uid": "0.0.2"
   },
