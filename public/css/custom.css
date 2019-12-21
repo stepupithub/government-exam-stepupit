@@ -1,0 +1,68 @@
+/* your styles go here */
+
+.modal {
+    padding-right: 0 !important;
+}
+.modal .employeemodal {
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+.required {
+    color: red;
+}
+.pointer {
+    cursor: pointer;
+}
+/*.account {
+    height: 138px;
+}*/
+.input-error {
+    border-left: 4px solid #f5202f !important;
+}
+.datepicker {
+    height: 47px;
+}
+.striped {
+    background-color: #D0D0D0;
+}
+.striped1 {
+    background-color: white;
+}
+.table td, .table th {
+   padding: 5px;
+   font-size: 12px;
+}
+
+.receipt-card {   
+    border: 5px solid !important; 
+    border-radius: 0px !important;
+}
+
+.payment-receipt-box {
+    display: block;
+    background-color: black;
+    margin-left: -16px;
+    margin-right: -16px;
+    font-size: 40px;
+    color: white
+}
+
+.font-size-19px {
+    font-size: 19px;
+}
+
+.font-size-22px {
+    font-size: 22px;
+}
+
+.text-bottom {   
+    border-bottom: 2px solid;
+}
+
+@media print
+{    
+    .no-print
+    {
+        display: none !important;
+    }
+}

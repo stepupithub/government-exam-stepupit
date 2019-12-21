@@ -1,0 +1,182 @@
+<div aria-hidden="true" class="modal fade text-left" data-backdrop="static" data-keyboard="false" id="questionpopup" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" ng-form="questionForm">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Add Question
+                </h4>
+                <button aria-label="Close" class="close" type="button" ng-click="db.question.closeModal()">
+                    <span aria-hidden="true">
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Language
+                            </label>
+                            <select class="form-control" name="languageId" ng-model="db.question.model.langId">
+                                <option value="">
+                                    -- Select Language --
+                                </option>
+                                <option ng-repeat="lan in lang.data" value="{{lan._id}}">
+                                    {{lan.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Category
+                            </label>
+                            <select class="form-control" name="categoryId" ng-model="db.question.model.catId">
+                                <option value="">
+                                    -- Select Category --
+                                </option>
+                                <option ng-repeat="cat in cat.data" value="{{cat._id}}" ng-if="db.question.model.langId == cat.langId">
+                                    {{cat.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Question
+                        </label>
+                        <textarea class="form-control" ng-model="db.question.model.question" rows="5">
+                        </textarea>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Answer 1
+                        </label>
+                        <input class="form-control" name="one" ng-model="db.question.model.answer1" type="text"/>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Answer 2
+                        </label>
+                        <input class="form-control" name="two" ng-model="db.question.model.answer2" type="text"/>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Answer 3
+                        </label>
+                        <input class="form-control" name="three" ng-model="db.question.model.answer3" type="text"/>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Answer 4
+                        </label>
+                        <input class="form-control" name="four" ng-model="db.question.model.answer4" type="text"/>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>
+                            Correct Answer
+                        </label>
+                        <input class="form-control" name="four" ng-model="db.question.model.correctAnswer" type="text"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100 text-center">
+                    <button class="btn btn-primary" ng-click="db.question.submit(questionForm)" type="submit">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade text-left" data-backdrop="static" data-keyboard="false" id="removecat" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Confirm Remove
+                </h4>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 order-md-1">
+                    Are you sure you want to delete this record?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <button class="btn btn-primary float-right" ng-click="db.cat.remove.removeData()">
+                        Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div aria-hidden="true" class="modal fade text-left" data-backdrop="static" data-keyboard="false" id="removequestion" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Confirm Remove
+                </h4>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 order-md-1">
+                    Are you sure you want to delete this record?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <button class="btn btn-primary float-right" ng-click="db.question.remove.removeData()">
+                        Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div aria-hidden="true" class="modal fade text-left" data-backdrop="static" data-keyboard="false" id="remove-subcat" role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Confirm Remove
+                </h4>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">
+                        ×
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 order-md-1">
+                    Are you sure you want to delete this record?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="w-100">
+                    <button class="btn btn-primary float-right" ng-click="db.subc.removeSubmit()">
+                        Yes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

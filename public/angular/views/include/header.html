@@ -1,0 +1,21 @@
+ <header class="header">
+    <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+        <a class="sidebar-toggler text-gray-500 mr-4 mr-lg-1 lead" ng-click="g.togleSidebar()">
+           <img class="img-fluid" src="img/favicon.ico">
+        </a>
+        <a class="font-weight-bold text-uppercase text-base mt-2">
+            <h4>Gujarat Rojgar Admin</h4>
+        </a>
+        <ul class="ml-auto d-flex align-items-center list-unstyled mb-0" ng-if="g.loggedUser._id">
+            <li class="nav-item ml-auto">
+                <a class="nav-link">
+                    <img alt="Jason Doe" class="img-fluid rounded-circle shadow" src="img/avatar-6.jpg" style="max-width: 2.5rem;"/>
+                    <span style="font-size: 16px; font-weight: 600;">{{g.loggedUser.firstName}} {{g.loggedUser.lastName}}</span>
+                    <span class="pointer ml-2" ng-click="g.logout()">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </span>
+                </a>  
+            </li>
+        </ul>
+    </nav>
+</header>

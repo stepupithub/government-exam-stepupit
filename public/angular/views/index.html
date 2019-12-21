@@ -1,0 +1,262 @@
+<section class="account-page" ng-controller="DashboardController" ng-init="lang.init(); cat.init();">
+    <div class="d-flex align-items-stretch">
+        <div ng-include="'angular/views/include/sidebar.html'">
+        </div>
+        <div class="page-holder w-100 d-flex flex-wrap">
+            <div class="container-fluid px-xl-3">
+                <section class="mt-3">
+                    <div class="row mb-4">
+
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                            <div class="card">
+                                <div class="card-header p-3">
+                                    <h2 class="h6 text-uppercase mb-0">
+                                        <span>
+                                            Language
+                                        </span>
+                                    </h2>
+                                </div>
+                                <div class="card-body account pt-2">
+                                    <div class="row mt-2">
+                                        <table class="table table-striped card-text m-0" ng-if="lang.data.length">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">
+                                                        #
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Name
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="inRow in lang.data | filter:search">
+                                                    <td class="w-25">
+                                                        {{$index + 1}}
+                                                    </td>
+                                                    <td class="w-50">
+                                                        <span ng-if="!inRow.isEdit">{{inRow.name}}</span>
+
+                                                        <div class="input-group mb-3 w-50" ng-if="inRow.isEdit">
+                                                            <input type="text" class="form-control" placeholder="Name" ng-model="inRow.name">
+                                                            <div class="input-group-append pointer" ng-click="lang.editsubmit(inRow)" ng-if="inRow.name">
+                                                              <span class="input-group-text">UPDATE</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="w-25">
+                                                        <i aria-hidden="true" class="fa fa-pencil-square pointer mr-2" ng-click="lang.postedit(inRow)">
+                                                        </i>
+                                                        <i class="fa fa-trash pointer" ng-click="lang.delete(inRow)">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                      
+                                        <div class="col-md-12 text-center my-4" ng-if="!lang.isloading && !lang.data.length">
+                                            No Data.
+                                        </div>
+                                        <div class="col-md-12 p-0">
+                                            <hr />
+                                        </div>
+
+                                        <div class="col-md-12 p-0">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Name" ng-model="lang.model.name">
+                                                <div class="input-group-append pointer" ng-click="lang.submit()" ng-if="lang.model.name">
+                                                  <span class="input-group-text">ADD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-center" ng-if="lang.isloading">
+                                            <i class="fa fa-spinner fa-spin fa-2x fa-fw">
+                                            </i>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6 mb-lg-0">
+                            <div class="card">
+                                <div class="card-header p-3">
+                                    <h2 class="h6 text-uppercase mb-0">
+                                        <span>
+                                            Categories
+                                        </span>
+                                    </h2>
+                                </div>
+                                <div class="card-body account pt-2">
+                                    <div class="row mt-2">
+
+                                        <table class="table table-striped card-text m-0" ng-if="cat.data.length">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">
+                                                        #
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Name
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Language
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="cRow in cat.data">
+                                                    <td>
+                                                        {{$index + 1}}
+                                                    </td>
+                                                    <td>
+                                                        {{cRow.langId}}
+                                                    </td>
+                                                    <td>
+                                                        <span ng-if="!cRow.isEdit">{{cRow.name}}</span>
+
+                                                        <div class="input-group mb-3 w-50" ng-if="cRow.isEdit">
+                                                            <input type="text" class="form-control" placeholder="Name" ng-model="cRow.name">
+                                                            <div class="input-group-append pointer" ng-click="db.subc.editsubmit(db.cat.catIID, db.cat.subdata, cRow)" ng-if="cRow.name">
+                                                              <span class="input-group-text">UPDATE</span>
+                                                            </div>
+                                                            <div class="input-group-append pointer" ng-if="!cRow.name" style="opacity: 0.5">
+                                                              <span class="input-group-text">UPDATE</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <i aria-hidden="true" class="fa fa-pencil-square pointer mr-2" ng-click="cat.edit(cRow)">
+                                                        </i>
+                                                        <i class="fa fa-trash pointer" ng-click="cat.delete(cRow)">
+                                                        </i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="col-md-12 text-center my-4" ng-if="!cat.data.length">
+                                            No Data.
+                                        </div>
+
+                                        <div class="col-md-12 p-0">
+                                            <hr />
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <select class="form-control" ng-model="cat.model.langId">
+                                                <option value="">Select Language</option>
+                                                <option value="{{row._id}}" ng-repeat="row in lang.data">{{row.name}}</option>
+                                            </select>    
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Name" ng-model="cat.model.name" />
+                                                <div class="input-group-append pointer" ng-click="cat.submit()" ng-if="cat.model.name">
+                                                  <span class="input-group-text">ADD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-sm-6 col-xs-12 p-0" ng-if="db.cat.catIID">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Name" ng-model="db.subc.model.name">
+                                                <div class="input-group-append pointer" ng-click="db.subc.submit(db.cat.catIID)" ng-if="db.subc.model.name">
+                                                  <span class="input-group-text">ADD</span>
+                                                </div>
+                                                <div class="input-group-append pointer" ng-if="!db.subc.model.name" style="opacity: 0.5">
+                                                  <span class="input-group-text">ADD</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="mt-2" ng-init="db.question.init()">
+                    <div class="row mb-4">
+                        <div class="col-lg-12 mb-4 mb-lg-0">
+                            <div class="card">
+                                <div class="card-header p-3">
+                                    <h2 class="h6 text-uppercase mb-0">
+                                        <span>
+                                            Questions
+                                        </span>
+                                        <span class="float-right pointer ml-3" ng-click="db.question.openModal()">
+                                            <i aria-hidden="true" class="fa fa-plus-square">
+                                            </i>
+                                        </span>
+                                        <span class="float-right pointer" id="employee-list">
+                                        </span>
+                                    </h2>
+                                </div>
+                                <div class="card-body account pt-2">
+                                    <div class="row mt-2">
+                                        <table class="table table-striped card-text" ng-if="db.question.data.length && !db.question.isloading">
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-top-0">
+                                                        #
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Question
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Currect Answer
+                                                    </th>
+                                                    <th class="border-top-0">
+                                                        Action
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="inRow in db.question.data | filter:search">
+                                                    <th scope="row">
+                                                        {{$index + 1}}
+                                                    </th>
+                                                    <td>
+                                                        {{inRow.question}}
+                                                    </td>
+                                                    <td>
+                                                        {{inRow.correctAnswer}}
+                                                    </td>
+                                                    <td>
+                                                        <i aria-hidden="true" class="fa fa-pencil-square pointer mr-2" ng-click="db.question.openModal(inRow)">
+                                                        </i>
+                                                        <i class="fa fa-trash pointer" ng-click="db.question.remove.submit(inRow)">
+                                                        </i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="col-md-12 text-center" ng-if="db.question.isloading">
+                                            <i class="fa fa-spinner fa-spin fa-2x fa-fw">
+                                            </i>
+                                        </div>
+                                        <div class="col-md-12 text-center" ng-if="!db.question.isloading && !db.question.data.length">
+                                            No Data.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'angular/views/include/question-modal.html'">
+    </div>
+</section>
