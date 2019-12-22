@@ -61,33 +61,6 @@ exports.getCondition = function(req, res) {
 			return;
 		}
 
-		if (req.body.model == 'QuizQuations') {
-			var catIds = [];
-			for (var i in response) {
-				catIds.push(response[i].catId);
-			}
-
-			var model = mongoose.model('QuizCategories');
-
-			model.find({
-				_id: { $in: catIds }
-			}).exec(function(err, userRes) {
-				for (var i in userRes) {
-					for (var j in response) {
-						if (userRes[i]._id == response[j].catId) {
-							response[j].category = userRes[i].name;
-						}
-					}
-				}
-				res.json({
-					status: true,
-					result: response
-				});
-				
-			});
-			return;
-		}
-
 		res.json({
 			status: true,
 			result: response
