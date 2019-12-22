@@ -2,7 +2,7 @@
 
 var appModule = angular.module('smModule', ['ngRoute', 'ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'toastr', 'ngAnimate']);
 
-appModule.run(function($rootScope, $timeout, $location, icdb, $http, alertService) {
+appModule.run(function($rootScope, $location, $http) {
     $rootScope.g = {};
 
 

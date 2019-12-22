@@ -76,7 +76,6 @@
                                             <i class="fa fa-spinner fa-spin fa-2x fa-fw">
                                             </i>
                                         </div>
-                                      
                                     </div>
                                 </div>
                             </div>
@@ -105,9 +104,6 @@
                                                         Name
                                                     </th>
                                                     <th class="border-top-0">
-                                                        Language
-                                                    </th>
-                                                    <th class="border-top-0">
                                                         Action
                                                     </th>
                                                 </tr>
@@ -116,9 +112,6 @@
                                                 <tr ng-repeat="cRow in cat.data">
                                                     <td>
                                                         {{$index + 1}}
-                                                    </td>
-                                                    <td>
-                                                        {{cRow.langId}}
                                                     </td>
                                                     <td>
                                                         <span ng-if="!cRow.isEdit">{{cRow.name}}</span>
@@ -152,10 +145,14 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <select class="form-control" ng-model="cat.model.langId">
-                                                <option value="">Select Language</option>
-                                                <option value="{{row._id}}" ng-repeat="row in lang.data">{{row.name}}</option>
-                                            </select>    
+                                            <div ng-repeat="lan in lang.data">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="false" id="defaultCheck-{{lan._id}}" ng-model="lan.check" />
+                                                    <label class="form-check-label" for="defaultCheck-{{lan._id}}">
+                                                        {{lan.name}}
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-group mb-3">

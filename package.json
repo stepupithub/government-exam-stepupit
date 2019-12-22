@@ -45,6 +45,7 @@
     "gulp-clean-css": "^3.9.0",
     "gulp-concat": "^2.6.1",
     "gulp-ng-annotate": "^2.1.0",
+    "gulp-nodemon": "^2.4.2",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
     "hbs": "^4.0.1",
@@ -52,12 +53,6 @@
     "mongoose": "^5.0.10",
     "sass": "^1.17.2",
     "uid": "0.0.2"
-  },
-  "devDependencies": {
-    "grunt-contrib-cssmin": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "gulp-nodemon": "^2.0.6",
-    "gulp-uglify": "^3.0.0"
   },
   "directories": {
     "test": "test"

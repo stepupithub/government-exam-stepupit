@@ -92,6 +92,18 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 return;
             }
 
+            $scope.cat.model.langId = [];
+            for (var i in $scope.lang.data) {
+                if ($scope.lang.data[i].check) {
+                    $scope.cat.model.langId.push($scope.lang.data[i]._id);
+                    $scope.lang.data[i].check = false;
+                }
+            }
+
+            if (!$scope.cat.model.langId.length) {
+                return;
+            }
+
             icdb.insert('categories', $scope.cat.model, function(response) {
                 $scope.cat.model = {};
                 $scope.cat.data.push(response.result);

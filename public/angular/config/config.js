@@ -6,7 +6,6 @@ angular.module('smModule').config(function(toastrConfig) {
         containerId: 'toast-container',
         maxOpened: 0,
         newestOnTop: true,
-        // positionClass: 'toast-bottom-full-width',
         preventDuplicates: false,
         preventOpenDuplicates: false,
         target: 'body'

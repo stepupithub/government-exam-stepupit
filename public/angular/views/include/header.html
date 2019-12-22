@@ -4,12 +4,11 @@
            <img class="img-fluid" src="img/favicon.ico">
         </a>
         <a class="font-weight-bold text-uppercase text-base mt-2">
-            <h4>Gujarat Rojgar Admin</h4>
+            <h4>Governement Exam</h4>
         </a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0" ng-if="g.loggedUser._id">
             <li class="nav-item ml-auto">
                 <a class="nav-link">
-                    <img alt="Jason Doe" class="img-fluid rounded-circle shadow" src="img/avatar-6.jpg" style="max-width: 2.5rem;"/>
                     <span style="font-size: 16px; font-weight: 600;">{{g.loggedUser.firstName}} {{g.loggedUser.lastName}}</span>
                     <span class="pointer ml-2" ng-click="g.logout()">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
