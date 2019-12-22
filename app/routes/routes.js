@@ -14,12 +14,11 @@ var icdb = require('../icdb');
 router.get('/', home.index);
 
 //Common routes
-router.post('/api/common/add-data', cors(), icdb.postAddData);
-router.post('/api/common/get-data', cors(), icdb.getData);
-router.post('/api/common/get-condition', cors(), icdb.getCondition);
-router.post('/api/common/single-data', cors(), icdb.getSingle);
-router.post('/api/common/edit-data', cors(), icdb.getEditData);
-router.post('/api/common/delete', cors(), icdb.getDeleteData);
+router.all('/api/common/get-data', cors(), icdb.getData);
+router.all('/api/common/get-condition', cors(), icdb.getCondition);
+router.all('/api/common/single-data', cors(), icdb.getSingle);
+router.all('/api/common/edit-data', cors(), icdb.getEditData);
+router.all('/api/common/delete', cors(), icdb.getDeleteData);
 
 
 module.exports = router;
