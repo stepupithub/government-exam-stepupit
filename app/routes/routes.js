@@ -22,4 +22,8 @@ router.all('/api/common/edit-data', cors(), icdb.getEditData);
 router.all('/api/common/delete', cors(), icdb.getDeleteData);
 
 
+// Cron routes
+router.get('/api/common/cron-update', icdb.cronUpdateData);
+
+
 module.exports = router;

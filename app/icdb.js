@@ -264,3 +264,26 @@ exports.getDeleteDataCondition = function(req, res) {
 		return;
 	});
 };
+
+
+exports.cronUpdateData = function(req, res) {
+	var commonModel = mongoose.model('questions');
+
+	var update = function(data) {
+		commonModel.update({
+		    _id: data._id
+		},{
+		    updatedAt: data.createdAt || new Date()
+		}).exec(function(err, result) {
+			console.log('result >>>', result);
+		});
+	}
+
+	commonModel.find({}).lean().exec(function(err, responseData) {
+		if (responseData && responseData.length) {
+			for (var i in responseData) {
+				update(responseData[i]);
+			}
+		}
+	});
+};
