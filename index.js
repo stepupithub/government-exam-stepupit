@@ -1,5 +1,6 @@
 var path = require('path');
 var http = require('http');
+var config = require('config');
 var compression = require('compression');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -20,7 +21,8 @@ if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'development';
 }
 
-mongoose.connect('mongodb://govermentexam:govermentexam123@ds357708.mlab.com:57708/heroku_gxd70fxm');
+// mongoose.connect('mongodb://govermentexam:govermentexam123@ds357708.mlab.com:57708/heroku_gxd70fxm');
+mongoose.connect(config.get('mongoDBURI'));
 
 // ExpressJS Configuration
 app.set('views', __dirname + '/app/views');

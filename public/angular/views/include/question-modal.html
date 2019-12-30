@@ -37,7 +37,7 @@
                                 <option value="">
                                     -- Select Category --
                                 </option>
-                                <option ng-repeat="cat in cat.data" value="{{cat._id}}" ng-if="db.question.model.langId == cat.langId">
+                                <option ng-repeat="cat in cat.data" value="{{cat._id}}" ng-if="cat.langId.indexOf(db.question.model.langId)  != -1 ">
                                     {{cat.name}}
                                 </option>
                             </select>

@@ -33,7 +33,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="inRow in lang.data | filter:search">
+                                                <tr ng-repeat="inRow in lang.data | orderBy: '-updatedAt' | filter:search">
                                                     <td class="w-25">
                                                         {{$index + 1}}
                                                     </td>
@@ -103,13 +103,14 @@
                                                     <th class="border-top-0">
                                                         Name
                                                     </th>
+
                                                     <th class="border-top-0">
                                                         Action
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="cRow in cat.data">
+                                                <tr ng-repeat="cRow in cat.data | orderBy: '-updatedAt'">
                                                     <td>
                                                         {{$index + 1}}
                                                     </td>
@@ -118,7 +119,7 @@
 
                                                         <div class="input-group mb-3 w-50" ng-if="cRow.isEdit">
                                                             <input type="text" class="form-control" placeholder="Name" ng-model="cRow.name">
-                                                            <div class="input-group-append pointer" ng-click="db.subc.editsubmit(db.cat.catIID, db.cat.subdata, cRow)" ng-if="cRow.name">
+                                                            <div class="input-group-append pointer" ng-click="cat.editsubmit(cRow)" ng-if="cRow.name">
                                                               <span class="input-group-text">UPDATE</span>
                                                             </div>
                                                             <div class="input-group-append pointer" ng-if="!cRow.name" style="opacity: 0.5">
@@ -208,6 +209,12 @@
                                                         #
                                                     </th>
                                                     <th class="border-top-0">
+                                                        Language
+                                                    </th> 
+                                                    <th class="border-top-0">
+                                                        Category
+                                                    </th>
+                                                    <th class="border-top-0">
                                                         Question
                                                     </th>
                                                     <th class="border-top-0">
@@ -219,10 +226,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="inRow in db.question.data | filter:search">
+                                                <tr ng-repeat="inRow in db.question.data | orderBy: '-updatedAt' | filter:search">
                                                     <th scope="row">
                                                         {{$index + 1}}
                                                     </th>
+                                                    <td>
+                                                        {{inRow.language}}
+                                                    </td> 
+                                                    <td>
+                                                        {{inRow.category}}
+                                                    </td> 
                                                     <td>
                                                         {{inRow.question}}
                                                     </td>

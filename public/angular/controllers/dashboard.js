@@ -50,6 +50,9 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 icdb.update('language', row._id, {
                     name: row.name,
                 }, function(response) {
+                    if (response.status) {
+                        row.updatedAt = response.result.updatedAt;
+                    }
                     row.isEdit = false;
                 });
             }
@@ -81,6 +84,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
 
             icdb.getCondition('categories', {}, function(response) {
                 $scope.cat.data = response.result;
+                console.log("response.result",response.result)
                 $scope.cat.isloading = false;
             });
         }
@@ -115,6 +119,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
             row.isEdit = !row.isEdit;
 
             $scope.cat.editsubmit = function(row) {
+                console.log("Helloo");
                 if (!row.name) {
                     return;
                 }
@@ -122,6 +127,9 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 icdb.update('categories', row._id, {
                     name: row.name,
                 }, function(response) {
+                    if (response.status) {
+                        row.updatedAt = response.result.updatedAt;
+                    }
                     row.isEdit = false;
                 });
             }
@@ -189,6 +197,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                     for (var i in $scope.db.question.data) {
                         if ($scope.db.question.data[i]._id == $scope.db.question.model._id) {
                             $scope.db.question.data[i] = angular.copy($scope.db.question.model);
+                            $scope.db.question.data[i].updatedAt = response.result.updatedAt;
                         }
                     }
                     alertService.flash('success', 'Question Updated successfully');
