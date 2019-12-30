@@ -15,6 +15,7 @@ router.get('/', home.index);
 
 //Common routes
 router.all('/api/common/get-data', cors(), icdb.getData);
+router.all('/api/common/add-data', cors(), icdb.postAddData);
 router.all('/api/common/get-condition', cors(), icdb.getCondition);
 router.all('/api/common/single-data', cors(), icdb.getSingle);
 router.all('/api/common/edit-data', cors(), icdb.getEditData);
