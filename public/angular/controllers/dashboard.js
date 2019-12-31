@@ -180,7 +180,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 $scope.db.question.model.answer1 = $scope.db.question.model.answers[0];
                 $scope.db.question.model.answer2 = $scope.db.question.model.answers[1];
                 $scope.db.question.model.answer3 = $scope.db.question.model.answers[2];
-                $scope.db.question.model.answer4 = $scope.db.question.model.answers[3];
+                // $scope.db.question.model.answer4 = $scope.db.question.model.answers[3];
             } else {
                $scope.db.question.model.qdata = {};   
             }
@@ -189,10 +189,19 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
 
 
         $scope.db.question.submit = function(form) {
-            if (!form.$valid) {             
+            if (!form.$valid) {
                 return;
-            }           
+            }
             if ($scope.db.question.model._id) {
+                var answers = [
+                    $scope.db.question.model.answer1,
+                    $scope.db.question.model.answer2,
+                    $scope.db.question.model.answer3,
+                    // $scope.db.question.model.answer4
+                ];
+
+                $scope.db.question.model.answers = answers;
+                
                 icdb.update('questions', $scope.db.question.model._id, $scope.db.question.model, function(response) {
                     for (var i in $scope.db.question.data) {
                         if ($scope.db.question.data[i]._id == $scope.db.question.model._id) {
@@ -208,7 +217,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                     $scope.db.question.model.answer1,
                     $scope.db.question.model.answer2,
                     $scope.db.question.model.answer3,
-                    $scope.db.question.model.answer4
+                    // $scope.db.question.model.answer4
                 ];
 
                 $scope.db.question.model.answers = answers;

@@ -79,8 +79,8 @@ exports.getCondition = function(req, res) {
             }).exec(function(err, userRes) {
                for (var i in userRes) {
                     for (var j in response) {
-                    	console.log("response>>>",response)
-                    	console.log("userRes>>>",userRes)
+                    	// console.log("response>>>",response)
+                    	// console.log("userRes>>>",userRes)
                         if (userRes[i]._id == response[j].langId) {
                             response[j].language = userRes[i].name;
                         }
