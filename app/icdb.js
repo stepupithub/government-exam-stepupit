@@ -163,21 +163,72 @@ exports.getEditData = function(req, res) {
 
     var commonModel = mongoose.model(req.body.model);
 
-    commonModel.update({
-        _id: req.body._id
-    }, req.body, {
-        multi: true
-    }).exec(function(err, result) {
-
-		if (req.body.model == 'OurTeam') {
-			req.session.user = req.body;
-		}
-
-        res.json({
-            status: true,
-            result: result
+     var update = function() {
+            commonModel.update({
+            _id: req.body._id
+        }, req.body, {
+            multi: true
+        }).exec(function(err, result) {
+            commonModel.findOne({
+                _id: req.body._id
+            }).exec(function(err, resD) {
+                res.json({
+                    status: true,
+                    result: resD
+                });
+            });
         });
-    });
+    }
+    if (req.body.model == 'language') {
+        commonModel.find({
+        	_id: { $ne: req.body._id },
+            name: req.body.name
+        }, function(err, category) {
+            if (category.length) {
+                res.json({
+                    msg: 'Language already availabel',
+                    status: false
+                });
+                return;
+            }
+            update();
+        });
+    } else if (req.body.model == 'questions') {
+        commonModel.find({
+        	 _id: { $ne: req.body._id },
+            langId: req.body.langId,
+            catId: req.body.catId,
+            question: req.body.question
+        }, function(err, question) {
+            if (question.length) {
+                res.json({
+                    msg: 'Question already availabel this category',
+                    status: false
+                });
+                return;
+            }
+            update();
+        });
+    } else {
+        update();
+    }
+
+
+  //   commonModel.update({
+  //       _id: req.body._id
+  //   }, req.body, {
+  //       multi: true
+  //   }).exec(function(err, result) {
+
+		// if (req.body.model == 'OurTeam') {
+		// 	req.session.user = req.body;
+		// }
+
+  //       res.json({
+  //           status: true,
+  //           result: result
+  //       });
+  //   });
 };
 
 
@@ -189,27 +240,57 @@ exports.postAddData = function(req, res) {
 	}
 
 	var commonModel = mongoose.model(req.body.model);
-	req.body.model = '';
-	req.body.createdAt = new Date().getTime();
-	req.body.updatedAt = new Date().getTime();
-	
-	var commonFormData = new commonModel(req.body);
 
-	commonFormData.save(function(err, result) {
+	 var insert = function() {
+        req.body.model = '';
+        req.body.createdAt = new Date().getTime();
+        req.body.updatedAt = new Date().getTime();
 
-		if (err) {
-			res.json({
-				status: false
-			});
-			return;
-		}
-
-		res.json({
-			status: true,
-			result: result
-		});
-	});
-	return;
+        var commonFormData = new commonModel(req.body);
+        commonFormData.save(function(err, result) {
+            if (err) {
+                res.json({
+                    status: false
+                });
+                return;
+            }
+            res.json({
+                status: true,
+                result: result
+            });
+        });
+    }
+    if (req.body.model == 'language') {
+        commonModel.find({
+            name: req.body.name
+        }, function(err, category) {
+            if (category.length) {
+                res.json({
+                    msg: 'Language already availabel',
+                    status: false
+                });
+                return;
+            }
+            insert();
+        });
+    } else if (req.body.model == 'questions') {
+        commonModel.find({
+            langId: req.body.langId,
+            catId: req.body.catId,
+            question: req.body.question
+        }, function(err, question) {
+            if (question.length) {
+                res.json({
+                    msg: 'Question already availabel this category',
+                    status: false
+                });
+                return;
+            }
+            insert();
+        });
+    } else {
+        insert();
+    }
 }
 
 

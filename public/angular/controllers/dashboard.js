@@ -33,8 +33,14 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
             icdb.insert('language', {
                 name: $scope.lang.model.name,
             }, function(response) {
-                $scope.lang.model = {};
-                $scope.lang.data.push(response.result);
+                if(response.status==true){
+                    $scope.lang.model = {};
+                    $scope.lang.data.push(response.result);
+                    alertService.flash('success', "Language Added Successfully");
+                }
+                else {
+                    alertService.flash('error', response.msg);
+                }  
             });
         }
 
@@ -50,10 +56,17 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 icdb.update('language', row._id, {
                     name: row.name,
                 }, function(response) {
-                    if (response.status) {
+
+                    if(response.status==true){
                         row.updatedAt = response.result.updatedAt;
+                        row.isEdit = false;
+                        alertService.flash('success', 'Language updated successfully');
                     }
-                    row.isEdit = false;
+                    else
+                    {
+                         alertService.flash('error', response.msg);
+                    }
+                    
                 });
             }
         }
@@ -84,7 +97,6 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
 
             icdb.getCondition('categories', {}, function(response) {
                 $scope.cat.data = response.result;
-                console.log("response.result",response.result)
                 $scope.cat.isloading = false;
             });
         }
@@ -109,8 +121,14 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
             }
 
             icdb.insert('categories', $scope.cat.model, function(response) {
-                $scope.cat.model = {};
-                $scope.cat.data.push(response.result);
+                if(response.status==true){
+                    $scope.cat.model = {};
+                    $scope.cat.data.push(response.result);
+                    alertService.flash('success', 'Category added successfuly');
+                } else {
+                    alertService.flash('error', response.msg);
+                }    
+               
             });
         }
 
@@ -119,7 +137,6 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
             row.isEdit = !row.isEdit;
 
             $scope.cat.editsubmit = function(row) {
-                console.log("Helloo");
                 if (!row.name) {
                     return;
                 }
@@ -127,10 +144,15 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 icdb.update('categories', row._id, {
                     name: row.name,
                 }, function(response) {
-                    if (response.status) {
+                    if(response.status==true) {
+                        row.isEdit = false;
                         row.updatedAt = response.result.updatedAt;
+                        alertService.flash('success', 'Category updated successfully');
+                    } else
+                    {
+                         alertService.flash('error', response.msg);
                     }
-                    row.isEdit = false;
+                    
                 });
             }
         }
@@ -188,10 +210,15 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
         }
 
 
+        $scope.db.question.isSubmit = false;
+        $scope.db.question.isReqSent = false;
         $scope.db.question.submit = function(form) {
+
             if (!form.$valid) {
+                $scope.db.question.isSubmit = true;
                 return;
             }
+            $scope.db.question.isSubmit = false;
             if ($scope.db.question.model._id) {
                 var answers = [
                     $scope.db.question.model.answer1,
@@ -203,14 +230,19 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 $scope.db.question.model.answers = answers;
                 
                 icdb.update('questions', $scope.db.question.model._id, $scope.db.question.model, function(response) {
-                    for (var i in $scope.db.question.data) {
-                        if ($scope.db.question.data[i]._id == $scope.db.question.model._id) {
-                            $scope.db.question.data[i] = angular.copy($scope.db.question.model);
-                            $scope.db.question.data[i].updatedAt = response.result.updatedAt;
+                    if(response.status==true){
+                        for (var i in $scope.db.question.data) {
+                            if ($scope.db.question.data[i]._id == $scope.db.question.model._id) {
+                                $scope.db.question.data[i] = angular.copy($scope.db.question.model);
+                                $scope.db.question.data[i].updatedAt = response.result.updatedAt;
+                            }
                         }
+                        alertService.flash('success', 'Question Updated successfully');
+                        $scope.db.question.closeModal();
                     }
-                    alertService.flash('success', 'Question Updated successfully');
-                    $scope.db.question.closeModal();
+                    else {
+                        alertService.flash('error', response.msg);
+                    }  
                 });
             } else {
                 var answers = [
@@ -223,9 +255,19 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
                 $scope.db.question.model.answers = answers;
 
                 icdb.insert('questions', $scope.db.question.model, function(response) {
-                    $scope.db.question.data.push(response.result);
-                    alertService.flash('success', 'Question Added successfully');
-                    $scope.db.question.closeModal();
+                    if(response.status==true){
+                        $scope.db.question.data.push(response.result);
+                        $scope.db.question.model.question= "";
+                        $scope.db.question.model.answer1= "";
+                        $scope.db.question.model.answer2= "";
+                        $scope.db.question.model.answer3= "";
+                        $scope.db.question.model.correctAnswer= "";
+                        alertService.flash('success', 'Question Added successfully');
+                    }
+                    else {
+                        alertService.flash('error', response.msg);
+                    }   
+
                 });
             }
         }

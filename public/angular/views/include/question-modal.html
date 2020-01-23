@@ -18,7 +18,7 @@
                             <label>
                                 Language
                             </label>
-                            <select class="form-control" name="languageId" ng-model="db.question.model.langId">
+                            <select class="form-control" name="langId" ng-model="db.question.model.langId" ng-class="{ 'input-error': db.question.isSubmit && questionForm.langId.$error.required }" required="true">
                                 <option value="">
                                     -- Select Language --
                                 </option>
@@ -33,7 +33,7 @@
                             <label>
                                 Category
                             </label>
-                            <select class="form-control" name="categoryId" ng-model="db.question.model.catId">
+                            <select class="form-control" name="catId" ng-model="db.question.model.catId" ng-class="{ 'input-error': db.question.isSubmit && questionForm.catId.$error.required }" required="true">
                                 <option value="">
                                     -- Select Category --
                                 </option>
@@ -47,26 +47,26 @@
                         <label>
                             Question
                         </label>
-                        <textarea class="form-control" ng-model="db.question.model.question" rows="5">
+                        <textarea class="form-control" ng-model="db.question.model.question" rows="5" ng-class="{ 'input-error': db.question.isSubmit && questionForm.question.$error.required }" required="true" name="question">
                         </textarea>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>
                             A
                         </label>
-                        <input class="form-control" name="one" ng-model="db.question.model.answer1" type="text"/>
+                        <input class="form-control" name="answer1" ng-model="db.question.model.answer1" type="text" ng-class="{ 'input-error': db.question.isSubmit && questionForm.answer1.$error.required }" required="true" />
                     </div>
                     <div class="col-md-12 form-group">
                         <label>
                             B
                         </label>
-                        <input class="form-control" name="two" ng-model="db.question.model.answer2" type="text"/>
+                        <input class="form-control" name="answer2" ng-model="db.question.model.answer2" type="text" ng-class="{ 'input-error': db.question.isSubmit && questionForm.answer2.$error.required }" required="true" />
                     </div>
                     <div class="col-md-12 form-group">
                         <label>
                             C
                         </label>
-                        <input class="form-control" name="three" ng-model="db.question.model.answer3" type="text"/>
+                        <input class="form-control" name="answer3" ng-model="db.question.model.answer3" type="text" ng-class="{ 'input-error': db.question.isSubmit && questionForm.answer3.$error.required }" required="true" />
                     </div>
                     <!-- <div class="col-md-12 form-group">
                         <label>
@@ -78,7 +78,7 @@
                         <label>
                             D (Correct Answer)
                         </label>
-                        <input class="form-control" name="four" ng-model="db.question.model.correctAnswer" type="text"/>
+                        <input class="form-control" name="correctAnswer" ng-model="db.question.model.correctAnswer" type="text" ng-class="{ 'input-error': db.question.isSubmit && questionForm.correctAnswer.$error.required }" required="true" />
                     </div>
                 </div>
             </div>
