@@ -20,6 +20,7 @@ router.all('/api/common/get-condition', cors(), icdb.getCondition);
 router.all('/api/common/single-data', cors(), icdb.getSingle);
 router.all('/api/common/edit-data', cors(), icdb.getEditData);
 router.all('/api/common/delete', cors(), icdb.getDeleteData);
+router.all('/api/common/delete/condition', cors(), icdb.getDeleteDataCondition);
 
 
 // Cron routes

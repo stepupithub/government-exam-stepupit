@@ -306,7 +306,7 @@ exports.getDeleteData = function(req, res) {
 
 
 exports.getDeleteDataCondition = function(req, res) {
-	if (!req.body.model || !req.body._id) {
+	if (!req.body.model) {
 		res.json([]);
 		return;
 	}
