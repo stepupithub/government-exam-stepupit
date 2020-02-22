@@ -21,8 +21,13 @@ if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'development';
 }
 
-// mongoose.connect('mongodb://govermentexam:govermentexam123@ds357708.mlab.com:57708/heroku_gxd70fxm');
-mongoose.connect(config.get('mongoDBURI'));
+mongoose.connect(config.get('mongoDBURI'), {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+}).then(
+  () => { console.log('Connected mongo...') },
+  err => { console.log('Not Connected mongo...') }
+);
 
 // ExpressJS Configuration
 app.set('views', __dirname + '/app/views');

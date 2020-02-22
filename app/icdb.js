@@ -1,6 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var qdataa = require('./question.json');
+qdataa = qdataa.result;
+
 require('date-utils');
 
 
@@ -79,8 +82,6 @@ exports.getCondition = function(req, res) {
             }).exec(function(err, userRes) {
                for (var i in userRes) {
                     for (var j in response) {
-                    	// console.log("response>>>",response)
-                    	// console.log("userRes>>>",userRes)
                         if (userRes[i]._id == response[j].langId) {
                             response[j].language = userRes[i].name;
                         }
@@ -212,23 +213,6 @@ exports.getEditData = function(req, res) {
     } else {
         update();
     }
-
-
-  //   commonModel.update({
-  //       _id: req.body._id
-  //   }, req.body, {
-  //       multi: true
-  //   }).exec(function(err, result) {
-
-		// if (req.body.model == 'OurTeam') {
-		// 	req.session.user = req.body;
-		// }
-
-  //       res.json({
-  //           status: true,
-  //           result: result
-  //       });
-  //   });
 };
 
 
@@ -350,21 +334,64 @@ exports.getDeleteDataCondition = function(req, res) {
 exports.cronUpdateData = function(req, res) {
 	var commonModel = mongoose.model('questions');
 
-	var update = function(data) {
-		commonModel.update({
-		    _id: data._id
-		},{
-		    updatedAt: data.createdAt || new Date()
-		}).exec(function(err, result) {
-			console.log('result >>>', result);
-		});
-	}
+	// var update = function(data) {
+	// 	commonModel.update({
+	// 	    _id: data._id
+	// 	},{
+	// 	    updatedAt: data.createdAt || new Date()
+	// 	}).exec(function(err, result) {
+	// 		console.log('result >>>', result);
+	// 	});
+	// }
 
-	commonModel.find({}).lean().exec(function(err, responseData) {
-		if (responseData && responseData.length) {
-			for (var i in responseData) {
-				update(responseData[i]);
-			}
-		}
-	});
+	// commonModel.find({}).lean().exec(function(err, responseData) {
+	// 	if (responseData && responseData.length) {
+	// 		for (var i in responseData) {
+	// 			update(responseData[i]);
+	// 		}
+	// 	}
+	// });
+
+
+
+    console.log("qdataa >>>", qdataa.length);
+
+    var resultss = [];
+    var answer = [];
+    for (var i in qdataa) {
+        answer = [];
+        
+        for (var j=1; j<=4; j++) {
+            if (qdataa[i].qdata[qdataa[i].qdata.answer] != qdataa[i].qdata[j]) {
+                answer.push(qdataa[i].qdata[j]);
+            }
+        }
+
+        resultss.push({
+            "answers": answer,
+            "langId": "5e509f100eb4b600044221d2",
+            "catId": "5e509f320eb4b600044221d3",
+            "question": qdataa[i].qdata.question,
+            "correctAnswer": qdataa[i].qdata[qdataa[i].qdata.answer],
+            "category": "Mix",
+            "language": "Mix"
+        });
+    }
+
+
+    var count = 0;
+     var insert = function(data) {
+        data.createdAt = new Date();
+        data.updatedAt = new Date();
+
+        var commonFormData = new commonModel(data);
+        commonFormData.save(function(err, result) {
+            count += 1;
+            console.log('count >>>>', count);
+        });
+    }
+
+    for (var i in resultss) {
+        insert(resultss[i]);
+    }
 };
