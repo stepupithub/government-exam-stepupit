@@ -1,9 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var qdataa = require('./question.json');
-qdataa = qdataa.result;
-
 require('date-utils');
 
 
