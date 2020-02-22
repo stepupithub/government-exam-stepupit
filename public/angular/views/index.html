@@ -201,6 +201,33 @@
                                     </h2>
                                 </div>
                                 <div class="card-body account pt-2">
+                                    <form autocomplete="off">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input class="form-control" type="text" placeholder="Search"  name="quesearch" ng-model="quesearch" aria-label="Search" />
+                                            </div> 
+                                            <div class="col-md-4">
+                                                <select class="form-control" name="langfilId" ng-model="db.question.model.langfilId" ng-change="db.question.filter(db.question.model.langfilId,db.question.model.catfilId,'lanchange')">
+                                                    <option value="0">
+                                                        -- Select Language --
+                                                    </option>
+                                                    <option ng-repeat="lan in lang.data" value="{{lan._id}}">
+                                                        {{lan.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <select class="form-control" name="catfilId" ng-model="db.question.model.catfilId" ng-change="db.question.filter(db.question.model.langfilId,db.question.model.catfilId,'catchange')">
+                                                    <option value="0">
+                                                        -- Select Category --
+                                                    </option>
+                                                    <option ng-repeat="cat in cat.data" value="{{cat._id}}" ng-if="cat.langId.indexOf(db.question.model.langfilId)  != -1 ">
+                                                        {{cat.name}}
+                                                    </option>
+                                                </select>
+                                            </div> 
+                                        </div>
+                                    </form>  
                                     <div class="row mt-2">
                                         <table class="table table-striped card-text" ng-if="db.question.data.length && !db.question.isloading">
                                             <thead>
@@ -226,7 +253,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="inRow in db.question.data | orderBy: '-updatedAt' | filter:search">
+                                                <tr ng-repeat="inRow in db.question.data | orderBy: '-updatedAt' | filter:quesearch">
                                                     <th scope="row">
                                                         {{$index + 1}}
                                                     </th>

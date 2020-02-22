@@ -184,10 +184,12 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
 
         $scope.db.question = {};
         $scope.db.question.data = [];
+        $scope.db.question.model = {};
         $scope.db.question.isloading = false;
         $scope.db.question.init = function() {
             $scope.db.question.isloading = true;
-
+            $scope.db.question.model.langfilId = '0';
+            $scope.db.question.model.catfilId = '0';
             icdb.getCondition('questions', {}, function(response) {
                 $scope.db.question.data = response.result;
                 $scope.db.question.isloading = false;
@@ -195,7 +197,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
         }
 
 
-        $scope.db.question.model = {};
+        
         $scope.db.question.openModal = function(row) {
             if (row && row._id) {
                 $scope.db.question.model = angular.copy(row);
@@ -278,7 +280,7 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
         }
 
         $scope.db.question.remove = {};
-        $scope.db.question.remove.submit = function(row, model) { 
+        $scope.db.question.remove.submit = function(row, model) {
             $('#removequestion').modal('show');
 
             $scope.db.question.remove.removeData = function() {
@@ -295,6 +297,35 @@ appModule.controller('DashboardController', ['$scope', '$http', 'icdb', 'alertSe
         };
 
 
+        //-------------------------------------------------
+        //    Filter Records
+        //-------------------------------------------------
+
+      
+        $scope.db.question.filter = function(langId,catId,change) {
+
+        
+            $scope.db.question.isloading = true;
+            $scope.condition = {};
+
+            if(change == 'lanchange') {
+                $scope.db.question.model.catfilId = '0';
+                catId = 0;
+            }
+
+            if(catId != 0) {
+                $scope.condition.catId = catId;
+            }
+
+            if(langId != 0) {
+                $scope.condition.langId = langId;
+            }
+
+            icdb.getCondition('questions',  $scope.condition, function(response) {
+                $scope.db.question.data = response.result;
+                $scope.db.question.isloading = false;
+            });
+        }
 
     }
 ]);
