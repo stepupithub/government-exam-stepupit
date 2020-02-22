@@ -374,7 +374,10 @@ exports.cronUpdateData = function(req, res) {
             "question": qdataa[i].qdata.question,
             "correctAnswer": qdataa[i].qdata[qdataa[i].qdata.answer],
             "category": "Mix",
-            "language": "Mix"
+            "language": "Mix",
+            "language": "Mix",
+            "type": "multiple",
+            "difficulty": "Hard"
         });
     }
 
