@@ -354,47 +354,47 @@ exports.cronUpdateData = function(req, res) {
 
 
 
-    console.log("qdataa >>>", qdataa.length);
+    // console.log("qdataa >>>", qdataa.length);
 
-    var resultss = [];
-    var answer = [];
-    for (var i in qdataa) {
-        answer = [];
+    // var resultss = [];
+    // var answer = [];
+    // for (var i in qdataa) {
+    //     answer = [];
         
-        for (var j=1; j<=4; j++) {
-            if (qdataa[i].qdata[qdataa[i].qdata.answer] != qdataa[i].qdata[j]) {
-                answer.push(qdataa[i].qdata[j]);
-            }
-        }
+    //     for (var j=1; j<=4; j++) {
+    //         if (qdataa[i].qdata[qdataa[i].qdata.answer] != qdataa[i].qdata[j]) {
+    //             answer.push(qdataa[i].qdata[j]);
+    //         }
+    //     }
 
-        resultss.push({
-            "answers": answer,
-            "langId": "5e509f100eb4b600044221d2",
-            "catId": "5e509f320eb4b600044221d3",
-            "question": qdataa[i].qdata.question,
-            "correctAnswer": qdataa[i].qdata[qdataa[i].qdata.answer],
-            "category": "Mix",
-            "language": "Mix",
-            "language": "Mix",
-            "type": "multiple",
-            "difficulty": "Hard"
-        });
-    }
+    //     resultss.push({
+    //         "answers": answer,
+    //         "langId": "5e509f100eb4b600044221d2",
+    //         "catId": "5e509f320eb4b600044221d3",
+    //         "question": qdataa[i].qdata.question,
+    //         "correctAnswer": qdataa[i].qdata[qdataa[i].qdata.answer],
+    //         "category": "Mix",
+    //         "language": "Mix",
+    //         "language": "Mix",
+    //         "type": "multiple",
+    //         "difficulty": "Hard"
+    //     });
+    // }
 
 
-    var count = 0;
-     var insert = function(data) {
-        data.createdAt = new Date();
-        data.updatedAt = new Date();
+    // var count = 0;
+    //  var insert = function(data) {
+    //     data.createdAt = new Date();
+    //     data.updatedAt = new Date();
 
-        var commonFormData = new commonModel(data);
-        commonFormData.save(function(err, result) {
-            count += 1;
-            console.log('count >>>>', count);
-        });
-    }
+    //     var commonFormData = new commonModel(data);
+    //     commonFormData.save(function(err, result) {
+    //         count += 1;
+    //         console.log('count >>>>', count);
+    //     });
+    // }
 
-    for (var i in resultss) {
-        insert(resultss[i]);
-    }
+    // for (var i in resultss) {
+    //     insert(resultss[i]);
+    // }
 };
